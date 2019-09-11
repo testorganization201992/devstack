@@ -14,7 +14,7 @@ if [[ $DEVSTACK == 'lms' ]]; then
     # * We have a way to test the infrastructure for testing but ignore the test results.
     # See PLAT-1712
     # - make e2e-tests
-    make e2e-tests
+    docker run -t --network=devstack_default -v ${DEVSTACK_WORKSPACE}/edx-e2e-tests:/edx-e2e-tests -v ${DEVSTACK_WORKSPACE}/edx-platform:/edx-e2e-tests/lib/edx-platform --env-file ${DEVSTACK_WORKSPACE}/edx-e2e-tests/devstack_env edxops/e2e env TERM=$(TERM)  bash -c 'paver e2e_test --exclude="whitelabel\|enterprise"'
 fi
 
 if [[ $DEVSTACK == 'analytics_pipeline' ]]; then
